@@ -1,5 +1,5 @@
 # InterviewGenie-AI
-# PrepMate AI 🎓🤖
+# TechoLeo Interview Prep AI 🎓🤖
 
 Your intelligent interview preparation assistant for graduates and job seekers.
 
@@ -14,7 +14,7 @@ Users can:
 - 📌 Understand key technical concepts behind each question
 - 🔁 Practice repeatedly and track progress
 
-Whether you're applying for your first job or transitioning into tech, PrepMate AI gives you the tailored guidance you need to succeed.
+Whether you're applying for your first job or transitioning into tech,TechoLeo Interview Prep AI gives you the tailored guidance you need to succeed.
 
 ---
 
