@@ -12,7 +12,7 @@ const Navbar = () => {
           {/* You can place logo image here */}
           {/* <img src="/logo.svg" alt="Logo" className="w-6 h-6" /> */}
           <h1 className="text-xl md:text-2xl font-bold text-gray-800 tracking-tight">
-            Interview Prep AI
+            TechoLeo Interview Prep AI
           </h1>
         </Link>
 
