@@ -105,7 +105,7 @@ const CreateSessionForm = () => {
           <Input
             value={formData.description}
             onChange={({ target }) => handleChange('description', target.value)}
-            label="Session Description (Optional)"
+            label="Session Description(mandatory)"
             placeholder="Any specific goals or notes"
             type="text"
           />
