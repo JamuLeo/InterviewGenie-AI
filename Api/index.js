@@ -47,20 +47,7 @@ app.use('/api/ai/generate-explanation', protect, generateConceptExplanation);
 // Serve uploads statically
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-// Serve React frontend statically
-const reactBuildPath = path.join(__dirname, '../client/build');
-app.use(express.static(reactBuildPath));
 
-// Serve React index.html for any other route, only if the file exists
-const indexHtmlPath = path.join(reactBuildPath, 'index.html');
-
-if (fs.existsSync(indexHtmlPath)) {
-  app.get('*', (req, res) => {
-    res.sendFile(indexHtmlPath);
-  });
-} else {
-  console.warn('⚠️ React build not found. Please run "npm run build" inside the client folder.');
-}
 
 // Start server
 const PORT = process.env.PORT || 8000;
