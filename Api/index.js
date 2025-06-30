@@ -1,53 +1,70 @@
-import express from 'express'
-import dotenv from 'dotenv'
-import cors from 'cors'
-import authRoutes from './Routers/authRoutes.js'
-import ConnectDb from './config/db.js'
-import path from "path";
+import express from 'express';
+import dotenv from 'dotenv';
+import cors from 'cors';
+import path from 'path';
+import fs from 'fs';
 import { fileURLToPath } from 'url';
-import sessionRoutes from './Routers/sessionRoutes.js'
-import questionRoutes from './Routers/questionRoutes.js'
-import protect from './Middleware/authMiddleware.js'
-import { generateInterviewQuestion, generateConceptExplanation } from './controllers/aicontroller.js'
 
-
+import authRoutes from './Routers/authRoutes.js';
+import ConnectDb from './config/db.js';
+import sessionRoutes from './Routers/sessionRoutes.js';
+import questionRoutes from './Routers/questionRoutes.js';
+import protect from './Middleware/authMiddleware.js';
+import {
+  generateInterviewQuestion,
+  generateConceptExplanation
+} from './controllers/aicontroller.js';
 
 // Load environment variables
-dotenv.config()
-const app = express()
+dotenv.config();
+
+const app = express();
+
+// Determine __dirname in ES modules
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 // Middleware to handle CORS
 app.use(cors({
-    origin: '*',
-    methods: ["GET", 'POST', "PUT", "DELETE"],
-    allowedHeaders: ["Content-Type", "Authorization"],
-}))
+  origin: '*',
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+}));
 
-// Connect DB
-ConnectDb()
+// Connect to database
+ConnectDb();
 
 // Middleware
-app.use(express.json())
+app.use(express.json());
 
-// Routes
-app.use('/api/auth', authRoutes)
-app.use('/api/sessions', sessionRoutes)
-app.use('/api/questions', questionRoutes)
+// API Routes
+app.use('/api/auth', authRoutes);
+app.use('/api/sessions', sessionRoutes);
+app.use('/api/questions', questionRoutes);
+app.use('/api/ai/generate-questions', protect, generateInterviewQuestion);
+app.use('/api/ai/generate-explanation', protect, generateConceptExplanation);
 
+// Serve uploads statically
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
-app.use('/api/ai/generate-questions', protect, generateInterviewQuestion)
-app.use('/api/ai/generate-explanation', protect, generateConceptExplanation)
+// Serve React frontend statically
+const reactBuildPath = path.join(__dirname, '../client/build');
+app.use(express.static(reactBuildPath));
 
-// Serve Uploads folder
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-app.use('/uploads', express.static(path.join(__dirname, 'uploads')))
+// Serve React index.html for any other route, only if the file exists
+const indexHtmlPath = path.join(reactBuildPath, 'index.html');
 
-
+if (fs.existsSync(indexHtmlPath)) {
+  app.get('*', (req, res) => {
+    res.sendFile(indexHtmlPath);
+  });
+} else {
+  console.warn('⚠️ React build not found. Please run "npm run build" inside the client folder.');
+}
 
 // Start server
-const Port = process.env.PORT || 8000
+const PORT = process.env.PORT || 8000;
 
-app.listen(Port, () => {
-    console.log(`Server is listening on port ${Port}`);
-})
+app.listen(PORT, () => {
+  console.log(`Server is listening on port ${PORT}`);
+});

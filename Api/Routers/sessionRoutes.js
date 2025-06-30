@@ -1,20 +1,17 @@
-import express from "express"
+import express from "express";
 import {
-    createSession,
-    getMySessions,
-    getSessionById,
-    deleteSession
-} from '../controllers/sessioncontroller.js'
+  createSession,
+  getMySessions,
+  getSessionById,
+  deleteSession
+} from '../controllers/sessioncontroller.js';
+import protect from "../Middleware/authMiddleware.js";
 
+const router = express.Router();
 
-import protect from "../Middleware/authMiddleware.js"
+router.post('/create', protect, createSession);
+router.get('/my-sessions', protect, getMySessions);
+router.get('/:id', protect, getSessionById);
+router.delete('/:id', protect, deleteSession);
 
-const router = express.Router()
-
-
-router.post('/create', protect, createSession)
-router.get('/my-sessions', protect, getMySessions)
-router.get('/:id', protect, getSessionById)
-router.delete('/:id', protect, deleteSession)
-
-export default router
+export default router;

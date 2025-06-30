@@ -35,7 +35,7 @@ const Landingpage = () => {
         <div className="px-4 sm:px-8 md:px-16 lg:px-24 pt-6 pb-28 relative z-10">
           {/* Header */}
           <header className="flex justify-between items-center mb-10 md:mb-16">
-            <h1 className="text-xl font-bold text-gray-800">Interview Prep AI</h1>
+            <h1 className="text-xl font-bold text-gray-800">TechoLeo Interview Prep AI</h1>
             {user ? (
               <ProfileinfoCard />
             ) : (
