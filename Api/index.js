@@ -26,7 +26,7 @@ const __dirname = path.dirname(__filename);
 
 // Middleware to handle CORS
 app.use(cors({
-  origin: '*',
+  origin: 'https://interviewboost.onrender.com',
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   allowedHeaders: ['Content-Type', 'Authorization']
 }));
