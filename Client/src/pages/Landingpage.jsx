@@ -144,7 +144,7 @@ const Landingpage = () => {
       </div>
 
       <div className='text-sm bg-gray-50 text-secondary text-center p-5 mt-5'>
-        Made with ❤️... Leo Jamu Mern Stack Developer
+       Leo Jamu | 📞 0888639011 | 📧 leojamutechographics@gmail.com | Aspiring Computer Scientist
       </div>
 
       <Modal

@@ -3,7 +3,7 @@ import multer from 'multer'
 // Configure Storage
 const storage = multer.diskStorage({
     destination: (req, file, cb) => {
-        cb(null, 'api/uploads/') // Make sure 'uploads/' folder exists
+        cb(null, 'uploads/') // Make sure 'uploads/' folder exists
     },
     filename: (req, file, cb) => {
         cb(null, `${Date.now()}-${file.originalname}`)
