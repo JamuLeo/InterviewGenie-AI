@@ -10,7 +10,7 @@ router.post("/register", authcontroller.registerUser);
 router.post("/login", authcontroller.loginUser);
 router.get("/profile", protect, authcontroller.getUserProfile);
 
-router.post('/upload-image', Upload.single('image'), (req, res) => {
+router.post('/upload-image', upload.single('image'), (req, res) => {
     if (!req.file) {
         return res.status(404).json({ message: "No file uploaded" });
     }
